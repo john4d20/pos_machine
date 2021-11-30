@@ -28,9 +28,5 @@ public class PosMachine {
         return String.join("\n", receiptLines);
     }
 
-    private String generateReceiptItemLine(ItemInfo itemDetail, Integer quantity) {
-        return String.format("Name: %s, Quantity: %d, Unit price: %d (yuan), Subtotal: %d (yuan)", itemDetail.getName(), quantity, itemDetail.getPrice(), calculateItemSubtotal(itemDetail, quantity));
-    }
-
 
 }
