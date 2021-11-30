@@ -28,5 +28,22 @@ public class PosMachine {
         return String.join("\n", receiptLines);
     }
 
+    private String generateReceiptItemLine(ItemInfo itemDetail, Integer quantity) {
+        return String.format("Name: %s, Quantity: %d, Unit price: %d (yuan), Subtotal: %d (yuan)", itemDetail.getName(), quantity, itemDetail.getPrice(), calculateItemSubtotal(itemDetail, quantity));
+    }
+
+    private Map<String, Integer> getQuantity(String[] items) {
+        Map<String, Integer> quantityMap = new HashMap<>();
+        Arrays.stream(items).forEach(item -> {
+            if (quantityMap.containsKey(item)) {
+                quantityMap.put(item, quantityMap.get(item) + 1);
+            }
+            else {
+                quantityMap.put(item, 1);
+            }
+        });
+        return quantityMap;
+    }
+
 
 }
