@@ -19,4 +19,14 @@ public class PosMachine {
 
 
 
+    private String getReceiptILines(List<ItemInfo> itemsContent, Map<String, Integer> itemQuantity) {
+        List<String> receiptLines = new ArrayList<>();
+        Arrays.stream(itemQuantity.keySet().toArray(new String[0])).sorted().forEach(itemId -> {
+            ItemInfo itemDetail = getItemInfoById(itemId, itemsContent);
+            receiptLines.add(generateReceiptItemLine(itemDetail, itemQuantity.get(itemDetail.getBarcode())));
+        });
+        return String.join("\n", receiptLines);
+    }
+
+
 }
