@@ -45,5 +45,33 @@ public class PosMachine {
         return quantityMap;
     }
 
+    private Integer calculateItemSubtotal(ItemInfo itemDetail, Integer quantity) {
+        return itemDetail.getPrice() * quantity;
+    }
 
+    private Integer calculateTotal(List<ItemInfo> itemsContent, Map<String, Integer> itemQuantity) {
+        Integer total = 0;
+        for (String itemId: itemQuantity.keySet()) {
+            total += calculateItemSubtotal(getItemInfoById(itemId, itemsContent), itemQuantity.get(itemId));
+        }
+        return total;
+    }
+
+    private ItemInfo getItemInfoById(String id, List<ItemInfo> allItemsContent) {
+        for (ItemInfo item: allItemsContent) {
+            if (item.getBarcode().equals(id)) return item;
+        }
+        return null;
+    }
+
+    private String getReceiptFooter(Integer total) {
+        return String.format(
+                "----------------------\n" +
+                        "Total: %d (yuan)\n" +
+                        "**********************", total);
+    }
+
+    private String getReceiptHeader() {
+        return "***<store earning no money>Receipt***\n";
+    }
 }
